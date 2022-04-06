@@ -37,23 +37,38 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.INTEGER,
       autoIncrement: true,
       primaryKey: true,
-      allowNull: false,
-      references: {
-        model: 'users', // 'user' refers to table name
-        key: 'id', // 'id' refers to column name in user table
-     }
+      allowNull: false,     
     },
     name: {
       type: Sequelize.STRING,
       allowNull: false,
       
     },
+    userId: {
+      allowNull: false,
+      type: Sequelize.INTEGER,
+      references: {
+        model: 'users', // 'user' refers to table name
+        key: 'userId', // 'id' refers to column name in user table
+     }      
+    },
+
     done: {
       type: Sequelize.BOOLEAN,
       
     }
 
   });
+  
+
+  Task.associate = (models) => {
+    Task.belongsTo(models.users, {
+      foreignKey: 'userId',
+      as: 'AssignTo',
+      
+    });
+  };
+
 
   return Task;
 };

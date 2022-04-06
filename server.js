@@ -10,6 +10,7 @@ const bodyParser = require("body-parser");
 // const userTypeAPI = require("./src/apis/sql/userType.api");
 // const userRoleAPI = require("./src/apis/sql/userRole.api");
 const userAPI = require("./src/apis/user.api");
+const taskAPI = require("./src/apis/task.api");
 // const tenantAPI = require("./src/apis/sql/tenant.api");
 
 dotenv.config();
@@ -53,6 +54,7 @@ app.route("/").get((req, res) => {
 
 //register router - CHANGEABLE
 app.use('/user', userAPI());
+app.use('/task', taskAPI());
 // app.use("/usertype", userTypeAPI());
 // app.use("/userrole", userRoleAPI());
 // app.use("/user", userAPI());

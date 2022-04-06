@@ -2,7 +2,7 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('users', {
-      id: {
+      userId: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
@@ -11,7 +11,7 @@ module.exports = {
       name: {
         type: Sequelize.STRING
       },
-      address: {
+      email: {
         type: Sequelize.STRING
       },
       createdAt: {
@@ -25,6 +25,7 @@ module.exports = {
         defaultValue: Sequelize.literal("NOW()")
       }
     });
+    // User.belongsToMany(Task, { through: 'id' });
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('users');

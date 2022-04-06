@@ -14,6 +14,14 @@ module.exports = {
       done: {
         type: Sequelize.BOOLEAN
       },
+      userId: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'users', // 'user' refers to table name
+          key: 'userId', // 'id' refers to column name in user table
+       }      
+      },
       createdAt: {
         allowNull: true,
         type: Sequelize.DATE
@@ -23,6 +31,15 @@ module.exports = {
         type: Sequelize.DATE
       }
     });
+    // Task.associate = (models) => {
+    //   Task.belongsTo(models.users, {
+    //     foreignKey: 'userId',
+    //     as: 'AssignTo',
+        
+    //   });
+    // };
+  
+  
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('tasks');

@@ -41,7 +41,7 @@
 module.exports = (sequelize, Sequelize) => {
   const User = sequelize.define("users", {
     
-    id: {
+    userId: {
       type: Sequelize.INTEGER,
       autoIncrement: true,
       primaryKey: true,
@@ -52,11 +52,20 @@ module.exports = (sequelize, Sequelize) => {
       allowNull: false,
       
     },
-    address: {
+    email: {
       type: Sequelize.STRING,
     }
 
   });
+ 
+  // User.hasMany(db.comments, { as: "comments" });
+  User.associate = (models) => {
+    User.hasMany(models.tasks, {
+      as:"tasks",
+      onDelete: 'cascade'
+      
+    });
+  };
 
   return User;
 };

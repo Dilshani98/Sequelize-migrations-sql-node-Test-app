@@ -1,8 +1,8 @@
 const db = require('../models');
-const User = db.users;
+const Task = db.tasks;
 
-const createUser = (req, res) => {
-    console.log(User)
+const createTask = (req, res) => {
+   
     
     // Validate request
     if (!req.body.name) {
@@ -16,9 +16,9 @@ const createUser = (req, res) => {
     //   name: req.body.name,
     //   address: req.body.address,
     // };
-    const user = req.body;
-    // Save dog in the database
-    User.create(user)
+    const task = req.body;
+    // Save task in the database
+    Task.create(task)
       .then(data => {
         res.send(data);
       })
@@ -30,10 +30,22 @@ const createUser = (req, res) => {
       });
   };
 
-  const getUserByID = async(req, res) => {
+  const getTasks = async(req, res) => {
+
+    return Task.findAll({}).then(data => {
+
+        res.send(data);}).catch(err => {
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while retrieving tutorials."})
+            ;})
+
+  };
+
+  const getTaskByID = async(req, res) => {
     const { id } = req.params;
 
-    const user = await User.findOne({
+    const user = await Task.findOne({
       where: {
         id,
       },
@@ -48,46 +60,33 @@ const createUser = (req, res) => {
     return res.send(user);
   };
 
-  const getUsers = async(req, res) => {
-
-    const user = User.findAll({}).then(data => {
-
-        res.send(data);}).catch(err => {
-        res.status(500).send({
-          message:
-            err.message || "Some error occurred while retrieving tutorials."})
-            ;})
-
-          
-  };
 
 
-  
- const deleteUser = async (req, res) => {
-    const userId  = req.params.id;
-    console.log("req",userId)
-    if (!userId) {
+ const deleteTask = async (req, res) => {
+    const { id } = req.params;
+    
+    if (!id) {
       return res.status(400).send({
         message: 'Please provide a id for the user you are trying to delete!',
       });
     }
   
-    const user = await User.findOne({
+    const user = await Task.findOne({
       where: {
-        userId:userId,
+        id,
       },
     });
   
     if (!user) {
       return res.status(400).send({
-        message: `No user found with the id ${userId}`,
+        message: `No user found with the id ${id}`,
       });
     }
   
     try {
       await user.destroy();
       return res.send({
-        message: `User ${userId} has been deleted!`,
+        message: `User ${id} has been deleted!`,
       });
     } catch (err) {
       return res.status(500).send({
@@ -96,13 +95,10 @@ const createUser = (req, res) => {
     }
   };
 
-
-
-
   
   module.exports = {
-    createUser,
-    getUsers,
-    deleteUser,
-    getUserByID
+    createTask,
+    getTaskByID,
+    deleteTask,
+    getTasks
   };

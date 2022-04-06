@@ -38,10 +38,13 @@ Object.keys(db).forEach(modelName => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-
+// db.users.hasMany(db.tasks, { as: "tasks" });
+// db.tasks.belongsTo(db.users, {
+//   foreignKey: "id",
+//   as: "userId",
+// });
 // db.users = require("./users")(sequelize, Sequelize);
 // db.tasks = require("./tasks")(sequelize, Sequelize);
-console.log(db.users) 
 module.exports = db;
 
 
