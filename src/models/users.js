@@ -56,18 +56,33 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING,
     }
 
-  });
+  },
+  
+  {
+    classMethods: {
+      associate: function(models) {
+        User.hasMany(models.tasks, { 
+          onDelete: 'cascade',
+          as:"tasks",
+         })
+      }
+    }
+  }
+  
+  );
  
   // User.hasMany(db.comments, { as: "comments" });
-  User.associate = (models) => {
-    User.hasMany(models.tasks, {
-      as:"tasks",
-      onDelete: 'cascade'
-      
-    });
-  };
+  // User.associate = (models) => {
+  //   User.hasMany(models.tasks, {
+  //     as:"tasks",
+  //     onDelete: 'CASCADE',
+  //     hooks: true
+  //   });
+  // };
 
   return User;
 };
+
+
 
 

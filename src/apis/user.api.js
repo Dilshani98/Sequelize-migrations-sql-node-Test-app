@@ -8,7 +8,7 @@ module.exports = function () {
     router.get('/getAll', userController.getUsers);
     router.get('/:id', userController.getUserByID);
     // router.patch('/updateuser/:id', userController.updateUser);
-    router.delete('/deleteuser/:id', userController.deleteUser);
+    router.delete('/deleteUserById/:id', userController.deleteUserById);
     
     
     return router;
