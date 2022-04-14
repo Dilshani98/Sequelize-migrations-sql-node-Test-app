@@ -20,6 +20,7 @@ app.use(bodyParser.json());
 
 
 const db = require("./src/models");
+
 // db.sequelize.sync({ force: true }).then(() => {console.log("Drop and re-sync db.");});
 
 //port no for run backend server

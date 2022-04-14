@@ -25,7 +25,15 @@ module.exports = {
         defaultValue: Sequelize.literal("NOW()")
       }
     });
-    // User.belongsToMany(Task, { through: 'id' });
+    // User.belongsToMany(Task, { through: 'id' });\
+
+  //   User.associate = (models) => {
+  //     User.hasMany(models.tasks, {
+  //       as:"tasks",
+  //       onDelete: 'CASCADE',
+  //       hooks: true
+  //     });
+  //   };
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('users');
